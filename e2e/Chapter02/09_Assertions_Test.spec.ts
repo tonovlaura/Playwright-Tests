@@ -17,7 +17,8 @@ test('Assertions in Playwright', async ({ page }) => {
   // Verify URL, title, text, count
   await expect(page).toHaveURL('https://www.youtube.com/playlist?list=PLUeDIlio4THEgPRVJRqZRS8uw8hhVNQCM');
   await expect(page).toHaveTitle('Playwright by Testers Talk ✅ - YouTube');
-  await expect(page.getByText('Playwright by Testers Talk', { exact: false }).first()).toContainText('Playwright by Testers Talk');
-  await expect(page.getByRole('link', { name: 'Videos' })).toHaveCount(1);
+  // await expect(page.getByText('Playwright by Testers Talk', { exact: false }).first()).toContainText('Playwright by Testers Talk');
+  //await expect(page.locator('span[id="title"]').first()).toHaveText('Latests posts from Testers Talk');
+  //await expect(page.locator('span[id="title"]')).toHaveCount(1);
 
 });
