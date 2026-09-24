@@ -28,7 +28,10 @@ test('Mouse action tests in Playwright', async ({ page }) => {
 
     await expect(newWindow).toHaveURL(/projects/);
 
-
+  // Hover over the 'Stars' link
+  await page.getByRole('link', { name: 'Stars' }).hover();
 
 
 });
+
+// Most of the code in this test was created by me with the help of Copilot, since the tutorial didn't cover mouse actions.
