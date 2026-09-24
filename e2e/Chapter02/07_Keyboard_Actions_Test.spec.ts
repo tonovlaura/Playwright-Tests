@@ -18,7 +18,7 @@ test('Keyboard actions in Playwright', async ({ page }) => {
   
   // Write last name, then select and delete it
  await page.getByRole('textbox', { name: 'Last name', exact: true  }).fill('Test');
- await page.keyboard.press('Meta+A');
+ await page.keyboard.press('Meta+A'); //Meta for Mac, control for Windows
  await page.keyboard.press('Delete');
 
 });
