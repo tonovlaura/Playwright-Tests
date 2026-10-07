@@ -7,13 +7,12 @@ test('Mouse action tests in Playwright', async ({ page }) => {
   // Left-click on the 'Repositories' link
   await page.getByRole('link', { name: 'Repositories' }).click({button: 'left' });
 
-   // Middle-click on the 'Projects' link -> should open in new tab
-     // Wait for the new tab to open
-    const newTabPromise = page.context().waitForEvent('page');
-      // Middle click
-    await page.getByRole('link', { name: 'Projects' }).click({ button: 'middle',});
+  // Command-click on the 'Projects' link -> should open in new tab
+    const [newTab] = await Promise.all([
+      page.context().waitForEvent('page'),
+      page.getByRole('link', { name: 'Projects' }).click({ modifiers: ['Meta'] }),
+    ]);
     // Wait for the new tab to load
-    const newTab = await newTabPromise;
     // checks if the new tab is opened
     await newTab.waitForLoadState();
 

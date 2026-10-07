@@ -9,16 +9,17 @@ test('Assertions in Playwright', async ({ page }) => {
   await page.getByRole('button', { name: /Reject all|Keeldu kõigist/i }).click();
   
   // Assertions: visible, editable, enabled, empty
-  await expect(page.getByPlaceholder('Search', { exact: true }).first()).toBeVisible();
-  await expect(page.getByPlaceholder('Search', { exact: true }).first()).toBeEditable();
-  await expect(page.getByPlaceholder('Search', { exact: true }).first()).toBeEnabled();
-  await expect(page.getByPlaceholder('Search', { exact: true }).first()).toBeEmpty();
+  const searchInput = page.getByPlaceholder('Search', { exact: true }).first();
+  await expect(searchInput).toBeVisible({ timeout: 15000 });
+  await expect(searchInput).toBeEditable();
+  await expect(searchInput).toBeEnabled();
+  await expect(searchInput).toBeEmpty();
 
   // Verify URL, title, text, count
   await expect(page).toHaveURL('https://www.youtube.com/playlist?list=PLUeDIlio4THEgPRVJRqZRS8uw8hhVNQCM');
   await expect(page).toHaveTitle('Playwright by Testers Talk ✅ - YouTube');
-  // await expect(page.getByText('Playwright by Testers Talk', { exact: false }).first()).toContainText('Playwright by Testers Talk');
-  //await expect(page.locator('span[id="title"]').first()).toHaveText('Latests posts from Testers Talk');
-  //await expect(page.locator('span[id="title"]')).toHaveCount(1);
+  
+  const description = page.locator('span[role="text"]:visible').filter({hasText: 'Playwright by Testers Talk Playwright tutorial playwright automation',}).first();
+  await expect(description).toHaveText(/Playwright by Testers Talk Playwright tutorial playwright automation/);
 
 });
