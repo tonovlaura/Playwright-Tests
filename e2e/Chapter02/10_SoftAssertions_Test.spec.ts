@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
-test('Assertions in Playwright', async ({ page }) => {
+// PS THIS TEST WILL FAIL (since this is an example of a soft assertion)
+test('Soft assertions in Playwright (test will fail)', async ({ page }) => {
 
   //going to correct link
   await page.goto('https://www.youtube.com/playlist?list=PLUeDIlio4THEgPRVJRqZRS8uw8hhVNQCM');
@@ -10,16 +11,14 @@ test('Assertions in Playwright', async ({ page }) => {
   
   // Assertions: visible, editable, enabled, empty
   const searchInput = page.getByPlaceholder('Search', { exact: true }).first();
-  // page loading time is too long, so we need to increase the timeout for this assertion
-  // problem is only in Firefox, in Chrome and Edge the test runs fine with default timeout
   await expect(searchInput).toBeVisible({ timeout: 15000 });
   await expect(searchInput).toBeEditable();
   await expect(searchInput).toBeEnabled();
   await expect(searchInput).toBeEmpty();
 
-  // Verify URL, title, text
+  // Soft assertion testing, resulting in test failure, but continuing to run the rest of the test. The test will fail at the end, but all assertions will be checked.
   await expect(page).toHaveURL('https://www.youtube.com/playlist?list=PLUeDIlio4THEgPRVJRqZRS8uw8hhVNQCM');
-  await expect(page).toHaveTitle('Playwright by Testers Talk ✅ - YouTube');
+  await expect.soft(page).toHaveTitle('TypeScript by Testers Talk ✅ - YouTube');
   
   const description = page.locator('span[role="text"]:visible').filter({hasText: 'Playwright by Testers Talk Playwright tutorial playwright automation',}).first();
   await expect(description).toHaveText(/Playwright by Testers Talk Playwright tutorial playwright automation/);
